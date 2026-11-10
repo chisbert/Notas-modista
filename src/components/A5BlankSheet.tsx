@@ -38,7 +38,6 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
 }) => {
   const isCompact = scale === 'compact';
   const [markedInstalacion, setMarkedInstalacion] = React.useState(false);
-  const [markedConfeccion, setMarkedConfeccion] = React.useState(false);
 
   return (
     <div
@@ -200,79 +199,109 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
         </div>
 
         {/* BOTTOM SECTION: FIRMAS DE RECEPCIÓN Y EMPRESA */}
-        <div className="shrink-0 mt-1 border border-black p-1.5 bg-white">
-          <div className="grid grid-cols-12 gap-2 items-stretch">
-            
-            {/* Left: Firma de Recepción Conforme del Cliente (6 cols) */}
-            <div className="col-span-6 border-r border-black pr-2 flex flex-col justify-between">
-              <div>
-                <div className="text-[9px] font-black uppercase text-black">
-                  RECEPCIÓN CONFORME DEL CLIENTE
-                </div>
-                <div className="text-[8px] text-neutral-800 leading-tight">
-                  Recibí los géneros e instalaciones a mi entera satisfacción.
-                </div>
-              </div>
-
-              {/* Box for handwritten customer signature */}
-              <div className="mt-2 border border-dotted border-black h-12 flex items-end justify-center pb-0.5">
-                <span className="text-[7.5px] text-neutral-600 uppercase tracking-wider">
-                  Firma del Cliente
-                </span>
-              </div>
-            </div>
-
-            {/* Right: Casillas de Instalación / Confección por el cliente (6 cols) */}
-            <div className="col-span-6 pl-2 flex flex-col justify-between">
-              <div>
-                <div className="text-[9px] font-black uppercase text-black tracking-tight">
-                  INSTALACIÓN / COLGADO POR EL CLIENTE
-                </div>
-
-                {/* Dos recuadros para marcar con 'X': Instalación y Confección */}
-                <div className="mt-1.5 flex items-center gap-3">
-                  {/* Casilla 1: Instalación */}
-                  <div
-                    onClick={() => setMarkedInstalacion(!markedInstalacion)}
-                    className="flex items-center gap-1.5 cursor-pointer select-none"
-                    title="Clic para marcar/desmarcar Instalación"
-                  >
-                    <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
-                      {markedInstalacion ? 'X' : ''}
-                    </div>
-                    <span className="text-[8.5px] font-bold text-black uppercase">
-                      Instalación
-                    </span>
+        <div className="shrink-0 mt-1 border border-black p-1.5 sm:p-2 bg-white">
+          {title === 'NOTAS DE MODISTA' ? (
+            /* NOTAS DE MODISTA: Sin instalación/colgado por cliente */
+            <div className="grid grid-cols-12 gap-2 items-stretch">
+              {/* Left: Firma de Recepción Conforme del Cliente (7 cols) */}
+              <div className="col-span-7 border-r border-black pr-2.5 flex flex-col justify-between">
+                <div>
+                  <div className="text-[9px] font-black uppercase text-black">
+                    RECEPCIÓN CONFORME DEL CLIENTE
                   </div>
-
-                  {/* Casilla 2: Confección */}
-                  <div
-                    onClick={() => setMarkedConfeccion(!markedConfeccion)}
-                    className="flex items-center gap-1.5 cursor-pointer select-none"
-                    title="Clic para marcar/desmarcar Confección"
-                  >
-                    <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
-                      {markedConfeccion ? 'X' : ''}
-                    </div>
-                    <span className="text-[8.5px] font-bold text-black uppercase">
-                      Confección
-                    </span>
+                  <div className="text-[8px] text-neutral-800 leading-tight">
+                    Recibí los géneros a mi entera satisfacción.
                   </div>
                 </div>
 
-                <div className="mt-1 text-[8px] text-neutral-800 leading-tight">
-                  El cliente sabe y declara que él mismo realiza el servicio marcado.
+                {/* Box for handwritten customer signature */}
+                <div className="mt-2 border border-dotted border-black h-12 flex items-end justify-center pb-0.5">
+                  <span className="text-[7.5px] text-neutral-600 uppercase tracking-wider">
+                    Firma del Cliente
+                  </span>
                 </div>
               </div>
 
-              {/* Línea inferior para observaciones o conformidad */}
-              <div className="mt-1.5 flex items-baseline gap-1 text-[8px] text-neutral-800">
-                <span className="font-bold text-black shrink-0">Obs.:</span>
-                <DotLine />
+              {/* Right: Observaciones (5 cols) */}
+              <div className="col-span-5 pl-2 flex flex-col justify-between">
+                <div>
+                  <div className="text-[9px] font-black uppercase text-black tracking-tight">
+                    OBSERVACIONES
+                  </div>
+                  <div className="text-[8px] text-neutral-800 leading-tight">
+                    Anotaciones y especificaciones.
+                  </div>
+                </div>
+
+                <div className="space-y-2 pb-0.5">
+                  <div className="flex items-baseline gap-1 text-[8px] text-neutral-800">
+                    <span className="font-bold text-black shrink-0">Obs.:</span>
+                    <DotLine heightClass="h-4" />
+                  </div>
+                  <div className="flex items-baseline gap-1 text-[8px]">
+                    <DotLine heightClass="h-4" />
+                  </div>
+                </div>
               </div>
             </div>
+          ) : (
+            /* PRESUPUESTO: Solo recuadro para marcar Instalación (eliminado confección) */
+            <div className="grid grid-cols-12 gap-2 items-stretch">
+              {/* Left: Firma de Recepción Conforme del Cliente (6 cols) */}
+              <div className="col-span-6 border-r border-black pr-2 flex flex-col justify-between">
+                <div>
+                  <div className="text-[9px] font-black uppercase text-black">
+                    RECEPCIÓN CONFORME DEL CLIENTE
+                  </div>
+                  <div className="text-[8px] text-neutral-800 leading-tight">
+                    Recibí los géneros e instalaciones a mi entera satisfacción.
+                  </div>
+                </div>
 
-          </div>
+                {/* Box for handwritten customer signature */}
+                <div className="mt-2 border border-dotted border-black h-12 flex items-end justify-center pb-0.5">
+                  <span className="text-[7.5px] text-neutral-600 uppercase tracking-wider">
+                    Firma del Cliente
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: Casilla de Instalación por el cliente (6 cols) - Solo Instalación */}
+              <div className="col-span-6 pl-2 flex flex-col justify-between">
+                <div>
+                  <div className="text-[9px] font-black uppercase text-black tracking-tight">
+                    INSTALACIÓN / COLGADO POR EL CLIENTE
+                  </div>
+
+                  {/* Único recuadro para marcar: Instalación (eliminada confección) */}
+                  <div className="mt-1.5 flex items-center gap-3">
+                    <div
+                      onClick={() => setMarkedInstalacion(!markedInstalacion)}
+                      className="flex items-center gap-1.5 cursor-pointer select-none"
+                      title="Clic para marcar/desmarcar Instalación"
+                    >
+                      <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
+                        {markedInstalacion ? 'X' : ''}
+                      </div>
+                      <span className="text-[8.5px] font-bold text-black uppercase">
+                        Instalación
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-1 text-[8px] text-neutral-800 leading-tight">
+                    El cliente sabe y declara que él mismo realiza el servicio de instalación.
+                  </div>
+                </div>
+
+                {/* Línea inferior para observaciones o conformidad */}
+                <div className="mt-1.5 flex items-baseline gap-1 text-[8px] text-neutral-800">
+                  <span className="font-bold text-black shrink-0">Obs.:</span>
+                  <DotLine heightClass="h-4" />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
       </div>
