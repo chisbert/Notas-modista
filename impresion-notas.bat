@@ -22,11 +22,11 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-if not exist "node_modules\\" (
+if not exist "node_modules\\@tailwindcss\\" (
     echo [1/2] Instalando paquetes necesarios por primera vez...
     echo Esto solo se realiza la primera vez y tardara un momento...
     echo.
-    call npm install
+    call npm install --legacy-peer-deps
     if %errorlevel% neq 0 (
         echo.
         echo [ERROR] Ha ocurrido un error al instalar dependencias con npm.
