@@ -8,14 +8,16 @@
 
 /* Base print stylesheet designed for exact single-page output (zero extra blank page) */
 @media print {
-  html, body {
+  html, body, #root, #root > div {
     background: #ffffff !important;
+    background-color: #ffffff !important;
     color: #000000 !important;
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
+    height: auto !important;
+    min-height: 0 !important;
+    box-shadow: none !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }

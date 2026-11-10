@@ -51,7 +51,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-200 text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-200 print:bg-white print:min-h-0 print:h-auto text-slate-900 flex flex-col font-sans">
       
       {/* Dynamic @page print CSS rules (margin: 0 prevents uncontrollable browser page breaks) */}
       <style>{`
@@ -213,7 +213,7 @@ export default function App() {
       </aside>
 
       {/* MAIN SHEET PREVIEW AREA */}
-      <main className="flex-1 flex justify-center items-start p-4 sm:p-8 overflow-y-auto">
+      <main className="flex-1 flex justify-center items-start p-4 sm:p-8 print:p-0 print:m-0 print:bg-white overflow-y-auto">
         
         {printMode === 'a5' ? (
           /* SINGLE A5 SHEET VIEW */

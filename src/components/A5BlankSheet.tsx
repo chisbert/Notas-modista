@@ -10,6 +10,23 @@ interface A5BlankSheetProps {
   scale?: 'normal' | 'compact';
 }
 
+const DotLine: React.FC<{ className?: string }> = ({ className = 'flex-1' }) => (
+  <span className={`${className} h-3 inline-flex items-end pb-0.5 overflow-hidden align-baseline select-none`}>
+    <svg className="w-full h-[2px]" preserveAspectRatio="none">
+      <line
+        x1="1"
+        y1="1"
+        x2="100%"
+        y2="1"
+        stroke="#000000"
+        strokeWidth="1.8"
+        strokeDasharray="1.5 5"
+        strokeLinecap="round"
+      />
+    </svg>
+  </span>
+);
+
 export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
   title = 'NOTAS DE MODISTA',
   company,
@@ -119,22 +136,22 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
             </div>
           </div>
 
-          {/* CUSTOMER INFORMATION SECTION (Blank dotted lines for pen writing) */}
+          {/* CUSTOMER INFORMATION SECTION (Crisp vector dotted lines) */}
           <div className="border-t border-b border-black py-1.5 my-1 space-y-1">
-            <div className="flex items-baseline justify-between text-[10.5px] font-bold text-black">
+            <div className="flex items-baseline justify-between text-[10.5px] font-bold text-black gap-2">
               <div className="flex-1 flex items-baseline gap-1">
-                <span className="italic">Cliente:</span>
-                <span className="border-b border-dotted border-black flex-1 inline-block h-3.5"></span>
+                <span className="italic shrink-0">Cliente:</span>
+                <DotLine />
               </div>
-              <div className="w-36 flex items-baseline gap-1 pl-2">
-                <span className="italic">Tel.:</span>
-                <span className="border-b border-dotted border-black flex-1 inline-block h-3.5"></span>
+              <div className="w-40 flex items-baseline gap-1 pl-2">
+                <span className="italic shrink-0">Tel.:</span>
+                <DotLine />
               </div>
             </div>
 
             <div className="flex items-baseline gap-1 text-[10.5px] font-bold text-black">
-              <span className="italic">Domicilio:</span>
-              <span className="border-b border-dotted border-black flex-1 inline-block h-3.5"></span>
+              <span className="italic shrink-0">Domicilio:</span>
+              <DotLine />
             </div>
           </div>
 
@@ -238,17 +255,13 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
               </div>
 
               {/* Línea inferior para observaciones o conformidad */}
-              <div className="mt-1.5 text-[8px] text-neutral-800">
-                <span className="font-bold text-black">Obs.:</span> ................................................................
+              <div className="mt-1.5 flex items-baseline gap-1 text-[8px] text-neutral-800">
+                <span className="font-bold text-black shrink-0">Obs.:</span>
+                <DotLine />
               </div>
             </div>
 
           </div>
-        </div>
-
-        {/* Small bottom note */}
-        <div className="text-center text-[7.5px] text-neutral-600 tracking-tight pt-0.5">
-          Maturana Decorhogar · Confección e Instalación a medida · Madrid
         </div>
 
       </div>
