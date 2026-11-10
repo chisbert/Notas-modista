@@ -10,8 +10,11 @@ interface A5BlankSheetProps {
   scale?: 'normal' | 'compact';
 }
 
-const DotLine: React.FC<{ className?: string }> = ({ className = 'flex-1' }) => (
-  <span className={`${className} h-3 inline-flex items-end pb-0.5 overflow-hidden align-baseline select-none`}>
+const DotLine: React.FC<{ className?: string; heightClass?: string }> = ({
+  className = 'flex-1',
+  heightClass = 'h-5',
+}) => (
+  <span className={`${className} ${heightClass} inline-flex items-end pb-1 overflow-hidden align-baseline select-none`}>
     <svg className="w-full h-[2px]" preserveAspectRatio="none">
       <line
         x1="1"
@@ -42,7 +45,7 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
       className={`a5-page bg-white text-black border border-slate-300 shadow-lg mx-auto relative select-none font-sans print:shadow-none print:border-none ${
         isCompact
           ? 'w-[148mm] h-[142mm] p-2 text-[10px]'
-          : 'w-[148mm] min-h-[208mm] max-h-[210mm] p-3 sm:p-4 text-xs'
+          : 'w-[148mm] h-[208mm] max-h-[208mm] p-3 sm:p-4 text-xs'
       }`}
       style={{
         width: '148mm',
@@ -60,10 +63,10 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
       </div>
 
       {/* Main Content inside the margin */}
-      <div className="pl-4 sm:pl-5 pr-1 flex flex-col justify-between h-full">
+      <div className="pl-4 sm:pl-5 pr-1 flex flex-col h-full min-h-0">
         
         {/* TOP HEADER: 3 Blocks replicating Maturana Decorhogar */}
-        <div>
+        <div className="shrink-0">
           <div className="grid grid-cols-12 gap-1 items-center pb-2 border-b border-black">
             
             {/* Col 1: Stylized Drapery Logo (4 cols) */}
@@ -119,7 +122,7 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
           {/* DOCUMENT TITLE, NUMBER BOX & DATE (Centered title and spacious date) */}
           <div className="flex items-center justify-between pt-1.5 pb-1 gap-2">
             {/* Left placeholder for symmetrical centering */}
-            <div className="w-[30%]"></div>
+            <div className="w-[28%]"></div>
 
             {/* Center: Title and number box */}
             <div className="flex-1 flex items-center justify-center gap-1.5">
@@ -136,28 +139,28 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
             </div>
           </div>
 
-          {/* CUSTOMER INFORMATION SECTION (Only Cliente for Notas de Modista) */}
-          <div className="border-t border-b border-black py-1.5 my-1">
+          {/* CUSTOMER INFORMATION SECTION (Spacious and comfortable for handwriting) */}
+          <div className="border-t border-b border-black py-3 sm:py-4 my-1.5 shrink-0">
             {title === 'NOTAS DE MODISTA' ? (
-              <div className="flex items-baseline gap-2 text-[10.5px] font-bold text-black w-full">
-                <span className="italic shrink-0">Cliente:</span>
-                <DotLine />
+              <div className="flex items-baseline gap-2.5 text-xs sm:text-[12.5px] font-bold text-black w-full min-h-[26px]">
+                <span className="italic shrink-0 tracking-wide text-sm font-semibold">Cliente:</span>
+                <DotLine className="flex-1" heightClass="h-6" />
               </div>
             ) : (
-              <div className="space-y-1">
-                <div className="flex items-baseline justify-between text-[10.5px] font-bold text-black gap-2">
-                  <div className="flex-1 flex items-baseline gap-1">
-                    <span className="italic shrink-0">Cliente:</span>
-                    <DotLine />
+              <div className="space-y-3.5">
+                <div className="flex items-baseline justify-between text-xs sm:text-[12px] font-bold text-black gap-3">
+                  <div className="flex-1 flex items-baseline gap-2">
+                    <span className="italic shrink-0 font-semibold">Cliente:</span>
+                    <DotLine className="flex-1" heightClass="h-5" />
                   </div>
-                  <div className="w-40 flex items-baseline gap-1 pl-2">
-                    <span className="italic shrink-0">Tel.:</span>
-                    <DotLine />
+                  <div className="w-44 flex items-baseline gap-2 pl-2">
+                    <span className="italic shrink-0 font-semibold">Tel.:</span>
+                    <DotLine className="flex-1" heightClass="h-5" />
                   </div>
                 </div>
-                <div className="flex items-baseline gap-1 text-[10.5px] font-bold text-black">
-                  <span className="italic shrink-0">Domicilio:</span>
-                  <DotLine />
+                <div className="flex items-baseline gap-2 text-xs sm:text-[12px] font-bold text-black">
+                  <span className="italic shrink-0 font-semibold">Domicilio:</span>
+                  <DotLine className="flex-1" heightClass="h-5" />
                 </div>
               </div>
             )}
@@ -165,10 +168,10 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
         </div>
 
         {/* RULED TABLE: Fills the entire space down to the bottom box */}
-        <div className="flex-1 border border-black overflow-hidden bg-white my-1 flex flex-col">
-          <table className="w-full h-full border-collapse ruled-table text-left text-[10px]">
-            <thead>
-              <tr className="bg-neutral-100 text-black font-black border-b border-black text-[9.5px] h-6 shrink-0">
+        <div className="flex-1 min-h-0 border border-black overflow-hidden bg-white my-1 flex flex-col">
+          <table className="w-full h-full border-collapse ruled-table text-left text-[10px] table-fixed">
+            <thead className="shrink-0">
+              <tr className="bg-neutral-100 text-black font-black border-b border-black text-[9.5px] h-6">
                 <th className="w-[12%] py-1 px-1 text-center border-r border-black uppercase tracking-wider">
                   Cant.
                 </th>
@@ -183,9 +186,9 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-black">
+            <tbody className="divide-y divide-black h-full">
               {Array.from({ length: rowCount }).map((_, idx) => (
-                <tr key={idx} className={isCompact ? 'h-5' : 'h-[6.2mm]'}>
+                <tr key={idx} style={{ height: `${100 / rowCount}%` }}>
                   <td className="border-r border-black"></td>
                   <td className="border-r border-black"></td>
                   <td className="border-r border-black"></td>
