@@ -17,7 +17,7 @@ import {
 export default function App() {
   const [docTitle, setDocTitle] = useState<'NOTAS DE MODISTA' | 'PRESUPUESTO'>('NOTAS DE MODISTA');
   const [printMode, setPrintMode] = useState<'a5' | '2up'>('a5');
-  const [rowCount, setRowCount] = useState<number>(13);
+  const [rowCount, setRowCount] = useState<number>(18);
   const [company, setCompany] = useState<CompanyInfo>(() => {
     try {
       const saved = localStorage.getItem('maturana_company_v4');
@@ -147,9 +147,9 @@ export default function App() {
                 onChange={(e) => setRowCount(Number(e.target.value))}
                 className="bg-transparent font-bold focus:outline-none cursor-pointer"
               >
-                <option value="11">11 filas (anchas)</option>
-                <option value="13">13 filas (estándar)</option>
-                <option value="15">15 filas (compactas)</option>
+                <option value="16">16 filas (anchas)</option>
+                <option value="18">18 filas (llena la hoja)</option>
+                <option value="20">20 filas (compactas)</option>
               </select>
             </div>
 

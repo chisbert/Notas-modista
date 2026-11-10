@@ -30,7 +30,7 @@ const DotLine: React.FC<{ className?: string }> = ({ className = 'flex-1' }) => 
 export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
   title = 'NOTAS DE MODISTA',
   company,
-  rowCount = 13,
+  rowCount = 18,
   scale = 'normal',
 }) => {
   const isCompact = scale === 'compact';
@@ -136,60 +136,68 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
             </div>
           </div>
 
-          {/* CUSTOMER INFORMATION SECTION (Crisp vector dotted lines) */}
-          <div className="border-t border-b border-black py-1.5 my-1 space-y-1">
-            <div className="flex items-baseline justify-between text-[10.5px] font-bold text-black gap-2">
-              <div className="flex-1 flex items-baseline gap-1">
+          {/* CUSTOMER INFORMATION SECTION (Only Cliente for Notas de Modista) */}
+          <div className="border-t border-b border-black py-1.5 my-1">
+            {title === 'NOTAS DE MODISTA' ? (
+              <div className="flex items-baseline gap-2 text-[10.5px] font-bold text-black w-full">
                 <span className="italic shrink-0">Cliente:</span>
                 <DotLine />
               </div>
-              <div className="w-40 flex items-baseline gap-1 pl-2">
-                <span className="italic shrink-0">Tel.:</span>
-                <DotLine />
+            ) : (
+              <div className="space-y-1">
+                <div className="flex items-baseline justify-between text-[10.5px] font-bold text-black gap-2">
+                  <div className="flex-1 flex items-baseline gap-1">
+                    <span className="italic shrink-0">Cliente:</span>
+                    <DotLine />
+                  </div>
+                  <div className="w-40 flex items-baseline gap-1 pl-2">
+                    <span className="italic shrink-0">Tel.:</span>
+                    <DotLine />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-1 text-[10.5px] font-bold text-black">
+                  <span className="italic shrink-0">Domicilio:</span>
+                  <DotLine />
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-baseline gap-1 text-[10.5px] font-bold text-black">
-              <span className="italic shrink-0">Domicilio:</span>
-              <DotLine />
-            </div>
-          </div>
-
-          {/* RULED TABLE: Cant. | C O N C E P T O | Precio Unitario | T O T A L */}
-          <div className="border border-black overflow-hidden bg-white mt-1">
-            <table className="w-full border-collapse ruled-table text-left text-[10px]">
-              <thead>
-                <tr className="bg-neutral-100 text-black font-black border-b border-black text-[9.5px]">
-                  <th className="w-[12%] py-1 px-1 text-center border-r border-black uppercase tracking-wider">
-                    Cant.
-                  </th>
-                  <th className="w-[58%] py-1 px-2 text-center border-r border-black uppercase tracking-widest font-black">
-                    C O N C E P T O
-                  </th>
-                  <th className="w-[15%] py-1 px-1 text-center border-r border-black uppercase tracking-wider">
-                    Precio Unit.
-                  </th>
-                  <th className="w-[15%] py-1 px-1 text-center uppercase tracking-widest font-black">
-                    T O T A L
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black">
-                {Array.from({ length: rowCount }).map((_, idx) => (
-                  <tr key={idx} className={isCompact ? 'h-5' : 'h-6 sm:h-6.5'}>
-                    <td className="border-r border-black"></td>
-                    <td className="border-r border-black"></td>
-                    <td className="border-r border-black"></td>
-                    <td></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            )}
           </div>
         </div>
 
+        {/* RULED TABLE: Fills the entire space down to the bottom box */}
+        <div className="flex-1 border border-black overflow-hidden bg-white my-1 flex flex-col">
+          <table className="w-full h-full border-collapse ruled-table text-left text-[10px]">
+            <thead>
+              <tr className="bg-neutral-100 text-black font-black border-b border-black text-[9.5px] h-6 shrink-0">
+                <th className="w-[12%] py-1 px-1 text-center border-r border-black uppercase tracking-wider">
+                  Cant.
+                </th>
+                <th className="w-[58%] py-1 px-2 text-center border-r border-black uppercase tracking-widest font-black">
+                  C O N C E P T O
+                </th>
+                <th className="w-[15%] py-1 px-1 text-center border-r border-black uppercase tracking-wider">
+                  Precio Unit.
+                </th>
+                <th className="w-[15%] py-1 px-1 text-center uppercase tracking-widest font-black">
+                  T O T A L
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-black">
+              {Array.from({ length: rowCount }).map((_, idx) => (
+                <tr key={idx} className={isCompact ? 'h-5' : 'h-[6.2mm]'}>
+                  <td className="border-r border-black"></td>
+                  <td className="border-r border-black"></td>
+                  <td className="border-r border-black"></td>
+                  <td></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         {/* BOTTOM SECTION: FIRMAS DE RECEPCIÓN Y EMPRESA */}
-        <div className="mt-1 border border-black p-1.5 bg-white">
+        <div className="shrink-0 mt-1 border border-black p-1.5 bg-white">
           <div className="grid grid-cols-12 gap-2 items-stretch">
             
             {/* Left: Firma de Recepción Conforme del Cliente (6 cols) */}
