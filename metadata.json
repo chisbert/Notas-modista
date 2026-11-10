@@ -1,0 +1,6 @@
+{
+  "name": "Notas de Entrega y Presupuestos - Decorhogar",
+  "description": "Generador e impresor profesional de notas de entrega y presupuestos con formato oficial de Maturana Decorhogar, cálculo automático y firma de recepción conforme.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

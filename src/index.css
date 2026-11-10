@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Base print stylesheet */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Specific styles for single A5 paper */
+  body.print-mode-a5 {
+    width: 148mm !important;
+  }
+
+  body.print-mode-a5 .a5-page {
+    width: 148mm !important;
+    height: 208mm !important;
+    max-height: 208mm !important;
+    page-break-after: always;
+    break-after: page;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 4mm 6mm !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Specific styles for 2x A5 on 1x A4 sheet */
+  body.print-mode-2up {
+    width: 210mm !important;
+  }
+
+  body.print-mode-2up .a4-sheet-container {
+    width: 210mm !important;
+    height: 295mm !important;
+    page-break-after: always;
+    break-after: page;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 4mm 6mm !important;
+    box-sizing: border-box !important;
+  }
+
+  body.print-mode-2up .a5-page {
+    height: 142mm !important;
+    max-height: 142mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 2mm 4mm !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Ruled lines and crisp borders for print */
+.ruled-table {
+  border-collapse: collapse;
+}
+
+.ruled-table th, .ruled-table td {
+  border-color: #000000;
+}

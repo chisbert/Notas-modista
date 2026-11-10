@@ -1,0 +1,257 @@
+import React from 'react';
+import { CompanyInfo } from '../types';
+import { CurtainLogo } from './CurtainLogo';
+import { Phone, Globe, Mail } from 'lucide-react';
+
+interface A5BlankSheetProps {
+  title: string; // e.g. "NOTA DE ENTREGA" or "PRESUPUESTO"
+  company: CompanyInfo;
+  rowCount?: number;
+  scale?: 'normal' | 'compact';
+}
+
+export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
+  title = 'NOTAS DE MODISTA',
+  company,
+  rowCount = 13,
+  scale = 'normal',
+}) => {
+  const isCompact = scale === 'compact';
+  const [markedInstalacion, setMarkedInstalacion] = React.useState(false);
+  const [markedConfeccion, setMarkedConfeccion] = React.useState(false);
+
+  return (
+    <div
+      className={`a5-page bg-white text-black border border-slate-300 shadow-lg mx-auto relative select-none font-sans print:shadow-none print:border-none ${
+        isCompact
+          ? 'w-[148mm] h-[142mm] p-2 text-[10px]'
+          : 'w-[148mm] min-h-[208mm] max-h-[210mm] p-3 sm:p-4 text-xs'
+      }`}
+      style={{
+        width: '148mm',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Left Margin Vertical CIF text (Dhogar PB - C.I.F.: E26670000) */}
+      <div className="absolute left-1 top-20 bottom-16 w-4 flex items-center justify-center pointer-events-none">
+        <div
+          className="transform -rotate-90 whitespace-nowrap text-[9px] font-bold tracking-widest text-black uppercase"
+          style={{ transformOrigin: 'center center' }}
+        >
+          {company.ownerName} &nbsp; C.I.F.: {company.nif}
+        </div>
+      </div>
+
+      {/* Main Content inside the margin */}
+      <div className="pl-4 sm:pl-5 pr-1 flex flex-col justify-between h-full">
+        
+        {/* TOP HEADER: 3 Blocks replicating Maturana Decorhogar */}
+        <div>
+          <div className="grid grid-cols-12 gap-1 items-center pb-2 border-b border-black">
+            
+            {/* Col 1: Stylized Drapery Logo (4 cols) */}
+            <div className="col-span-4 flex flex-col items-center justify-center text-center">
+              <CurtainLogo
+                className={isCompact ? 'w-24 h-auto' : 'w-28 sm:w-32 h-auto'}
+                brandName="MATURANA"
+                slogan={company.slogan}
+              />
+            </div>
+
+            {/* Col 2: Central Coordinates (4 cols) */}
+            <div className="col-span-4 text-center text-[9px] leading-tight text-black space-y-0.5">
+              <div className="font-extrabold text-[10px] tracking-tight">
+                {company.address}
+              </div>
+              <div className="font-bold">
+                {company.cityPostal}
+              </div>
+              <div className="font-bold pt-0.5">
+                Tels.: {company.phones}
+              </div>
+              <div className="text-[8.5px]">
+                {company.website}
+              </div>
+              <div className="text-[8.5px]">
+                {company.email}
+              </div>
+              {company.social ? (
+                <div className="text-[8px] font-semibold">
+                  {company.social}
+                </div>
+              ) : null}
+            </div>
+
+            {/* Col 3: Services and specialties (4 cols) */}
+            <div className="col-span-4 text-center text-[8px] font-bold text-black leading-tight border-l border-black pl-1 space-y-0.5">
+              {company.servicesTagline.map((line, idx) => (
+                <div
+                  key={idx}
+                  className={
+                    idx === 0 || idx === company.servicesTagline.length - 1
+                      ? 'font-black text-black tracking-tight'
+                      : 'text-neutral-900'
+                  }
+                >
+                  {line}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* DOCUMENT TITLE, NUMBER BOX & DATE */}
+          <div className="flex items-end justify-between pt-1.5 pb-1">
+            <div className="text-[9px] text-neutral-600 font-semibold italic">
+              * Documento oficial de confección y modista
+            </div>
+
+            <div className="flex flex-col items-end gap-1">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs sm:text-sm font-black tracking-wider uppercase text-black">
+                  {title} Nº.:
+                </span>
+                {/* Empty bordered box for stamping or writing document number */}
+                <div className="border border-black w-24 sm:w-28 h-6 sm:h-7 bg-white"></div>
+              </div>
+              <div className="text-[10px] font-bold text-black tracking-wider">
+                Fecha: &nbsp; ........ / ........ / 20........
+              </div>
+            </div>
+          </div>
+
+          {/* CUSTOMER INFORMATION SECTION (Blank dotted lines for pen writing) */}
+          <div className="border-t border-b border-black py-1.5 my-1 space-y-1">
+            <div className="flex items-baseline justify-between text-[10.5px] font-bold text-black">
+              <div className="flex-1 flex items-baseline gap-1">
+                <span className="italic">Cliente:</span>
+                <span className="border-b border-dotted border-black flex-1 inline-block h-3.5"></span>
+              </div>
+              <div className="w-36 flex items-baseline gap-1 pl-2">
+                <span className="italic">Tel.:</span>
+                <span className="border-b border-dotted border-black flex-1 inline-block h-3.5"></span>
+              </div>
+            </div>
+
+            <div className="flex items-baseline gap-1 text-[10.5px] font-bold text-black">
+              <span className="italic">Domicilio:</span>
+              <span className="border-b border-dotted border-black flex-1 inline-block h-3.5"></span>
+            </div>
+          </div>
+
+          {/* RULED TABLE: Cant. | C O N C E P T O | Precio Unitario | T O T A L */}
+          <div className="border border-black overflow-hidden bg-white mt-1">
+            <table className="w-full border-collapse ruled-table text-left text-[10px]">
+              <thead>
+                <tr className="bg-neutral-100 text-black font-black border-b border-black text-[9.5px]">
+                  <th className="w-[12%] py-1 px-1 text-center border-r border-black uppercase tracking-wider">
+                    Cant.
+                  </th>
+                  <th className="w-[58%] py-1 px-2 text-center border-r border-black uppercase tracking-widest font-black">
+                    C O N C E P T O
+                  </th>
+                  <th className="w-[15%] py-1 px-1 text-center border-r border-black uppercase tracking-wider">
+                    Precio Unit.
+                  </th>
+                  <th className="w-[15%] py-1 px-1 text-center uppercase tracking-widest font-black">
+                    T O T A L
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-black">
+                {Array.from({ length: rowCount }).map((_, idx) => (
+                  <tr key={idx} className={isCompact ? 'h-5' : 'h-6 sm:h-6.5'}>
+                    <td className="border-r border-black"></td>
+                    <td className="border-r border-black"></td>
+                    <td className="border-r border-black"></td>
+                    <td></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* BOTTOM SECTION: FIRMAS DE RECEPCIÓN Y EMPRESA */}
+        <div className="mt-1 border border-black p-1.5 bg-white">
+          <div className="grid grid-cols-12 gap-2 items-stretch">
+            
+            {/* Left: Firma de Recepción Conforme del Cliente (6 cols) */}
+            <div className="col-span-6 border-r border-black pr-2 flex flex-col justify-between">
+              <div>
+                <div className="text-[9px] font-black uppercase text-black">
+                  RECEPCIÓN CONFORME DEL CLIENTE
+                </div>
+                <div className="text-[8px] text-neutral-800 leading-tight">
+                  Recibí los géneros e instalaciones a mi entera satisfacción.
+                </div>
+              </div>
+
+              {/* Box for handwritten customer signature */}
+              <div className="mt-2 border border-dotted border-black h-12 flex items-end justify-center pb-0.5">
+                <span className="text-[7.5px] text-neutral-600 uppercase tracking-wider">
+                  Firma del Cliente
+                </span>
+              </div>
+            </div>
+
+            {/* Right: Casillas de Instalación / Confección por el cliente (6 cols) */}
+            <div className="col-span-6 pl-2 flex flex-col justify-between">
+              <div>
+                <div className="text-[9px] font-black uppercase text-black tracking-tight">
+                  INSTALACIÓN / COLGADO POR EL CLIENTE
+                </div>
+
+                {/* Dos recuadros para marcar con 'X': Instalación y Confección */}
+                <div className="mt-1.5 flex items-center gap-3">
+                  {/* Casilla 1: Instalación */}
+                  <div
+                    onClick={() => setMarkedInstalacion(!markedInstalacion)}
+                    className="flex items-center gap-1.5 cursor-pointer select-none"
+                    title="Clic para marcar/desmarcar Instalación"
+                  >
+                    <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
+                      {markedInstalacion ? 'X' : ''}
+                    </div>
+                    <span className="text-[8.5px] font-bold text-black uppercase">
+                      Instalación
+                    </span>
+                  </div>
+
+                  {/* Casilla 2: Confección */}
+                  <div
+                    onClick={() => setMarkedConfeccion(!markedConfeccion)}
+                    className="flex items-center gap-1.5 cursor-pointer select-none"
+                    title="Clic para marcar/desmarcar Confección"
+                  >
+                    <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
+                      {markedConfeccion ? 'X' : ''}
+                    </div>
+                    <span className="text-[8.5px] font-bold text-black uppercase">
+                      Confección
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-1 text-[8px] text-neutral-800 leading-tight">
+                  El cliente sabe y declara que él mismo realiza el servicio marcado.
+                </div>
+              </div>
+
+              {/* Línea inferior para observaciones o conformidad */}
+              <div className="mt-1.5 text-[8px] text-neutral-800">
+                <span className="font-bold text-black">Obs.:</span> ................................................................
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Small bottom note */}
+        <div className="text-center text-[7.5px] text-neutral-600 tracking-tight pt-0.5">
+          Maturana Decorhogar · Confección e Instalación a medida · Madrid
+        </div>
+
+      </div>
+    </div>
+  );
+};
