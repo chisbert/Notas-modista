@@ -53,11 +53,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-200 text-slate-900 flex flex-col font-sans">
       
-      {/* Dynamic @page print CSS rules based on selected print layout */}
+      {/* Dynamic @page print CSS rules (margin: 0 prevents uncontrollable browser page breaks) */}
       <style>{`
         @page {
           size: ${printMode === 'a5' ? 'A5 portrait' : 'A4 portrait'};
-          margin: ${printMode === 'a5' ? '4mm 5mm' : '5mm 5mm'};
+          margin: 0;
         }
       `}</style>
 
@@ -227,10 +227,10 @@ export default function App() {
           </div>
         ) : (
           /* 2x A5 ON SINGLE A4 SHEET (CUT BY HALF) */
-          <div className="a4-sheet-container bg-white border border-slate-300 shadow-xl p-2 sm:p-4 w-[210mm] min-h-[297mm] flex flex-col justify-between print:shadow-none print:border-none print:p-0">
+          <div className="a4-sheet-container bg-white border border-slate-300 shadow-xl p-2 sm:p-4 w-[210mm] max-h-[284mm] flex flex-col justify-between print:shadow-none print:border-none print:p-0">
             
             {/* Top A5 Note */}
-            <div className="h-[143mm] overflow-hidden">
+            <div className="h-[137mm] max-h-[137mm] overflow-hidden">
               <A5BlankSheet
                 title={docTitle}
                 company={company}
@@ -247,7 +247,7 @@ export default function App() {
             </div>
 
             {/* Bottom A5 Note */}
-            <div className="h-[143mm] overflow-hidden">
+            <div className="h-[137mm] max-h-[137mm] overflow-hidden">
               <A5BlankSheet
                 title={docTitle}
                 company={company}

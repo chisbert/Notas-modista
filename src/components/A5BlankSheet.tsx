@@ -99,23 +99,23 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
             </div>
           </div>
 
-          {/* DOCUMENT TITLE, NUMBER BOX & DATE */}
-          <div className="flex items-end justify-between pt-1.5 pb-1">
-            <div className="text-[9px] text-neutral-600 font-semibold italic">
-              * Documento oficial de confección y modista
+          {/* DOCUMENT TITLE, NUMBER BOX & DATE (Centered title and spacious date) */}
+          <div className="flex items-center justify-between pt-1.5 pb-1 gap-2">
+            {/* Left placeholder for symmetrical centering */}
+            <div className="w-[30%]"></div>
+
+            {/* Center: Title and number box */}
+            <div className="flex-1 flex items-center justify-center gap-1.5">
+              <span className="text-xs sm:text-sm font-black tracking-wider uppercase text-black whitespace-nowrap">
+                {title} Nº.:
+              </span>
+              {/* Empty bordered box for stamping or writing document number */}
+              <div className="border border-black w-24 sm:w-28 h-6 sm:h-7 bg-white shrink-0"></div>
             </div>
 
-            <div className="flex flex-col items-end gap-1">
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs sm:text-sm font-black tracking-wider uppercase text-black">
-                  {title} Nº.:
-                </span>
-                {/* Empty bordered box for stamping or writing document number */}
-                <div className="border border-black w-24 sm:w-28 h-6 sm:h-7 bg-white"></div>
-              </div>
-              <div className="text-[10px] font-bold text-black tracking-wider">
-                Fecha: &nbsp; ........ / ........ / 20........
-              </div>
+            {/* Right: Date with plenty of space */}
+            <div className="w-[32%] text-right text-[10px] sm:text-[10.5px] font-bold text-black tracking-wider whitespace-nowrap">
+              Fecha: &nbsp; ........ / ........ / 20........
             </div>
           </div>
 
