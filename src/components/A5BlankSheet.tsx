@@ -203,69 +203,52 @@ export const A5BlankSheet: React.FC<A5BlankSheetProps> = ({
         {/* BOTTOM SECTION: FIRMAS DE RECEPCIÓN Y EMPRESA */}
         <div className="shrink-0 mt-1 border border-black p-1.5 sm:p-2 bg-white">
           {title === 'NOTAS DE MODISTA' ? (
-            /* NOTAS DE MODISTA: Con Observaciones y casillas de Instalación / Confección */
-            <div className="grid grid-cols-12 gap-2 items-stretch">
-              {/* Left: Firma de Recepción Conforme del Cliente (6 cols) */}
-              <div className="col-span-6 border-r border-black pr-2 flex flex-col justify-between">
-                <div>
-                  <div className="text-[9px] font-black uppercase text-black">
-                    RECEPCIÓN CONFORME DEL CLIENTE
-                  </div>
-                  <div className="text-[8px] text-neutral-800 leading-tight">
-                    Recibí los géneros a mi entera satisfacción.
-                  </div>
+            /* NOTAS DE MODISTA: Solo Observaciones con casillas de Instalación / Confección */
+            <div className="flex flex-col justify-between gap-2">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="text-[9px] font-black uppercase text-black tracking-tight">
+                  OBSERVACIONES
                 </div>
 
-                {/* Box for handwritten customer signature */}
-                <div className="mt-2 border border-dotted border-black h-12 flex items-end justify-center pb-0.5">
-                  <span className="text-[7.5px] text-neutral-600 uppercase tracking-wider">
-                    Firma del Cliente
-                  </span>
+                {/* Dos recuadros para marcar con 'X': Instalación y Confección */}
+                <div className="flex items-center gap-4">
+                  {/* Casilla 1: Instalación */}
+                  <div
+                    onClick={() => setMarkedModistaInstalacion(!markedModistaInstalacion)}
+                    className="flex items-center gap-1.5 cursor-pointer select-none"
+                    title="Clic para marcar/desmarcar Instalación"
+                  >
+                    <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
+                      {markedModistaInstalacion ? 'X' : ''}
+                    </div>
+                    <span className="text-[8.5px] font-bold text-black uppercase">
+                      Instalación
+                    </span>
+                  </div>
+
+                  {/* Casilla 2: Confección */}
+                  <div
+                    onClick={() => setMarkedModistaConfeccion(!markedModistaConfeccion)}
+                    className="flex items-center gap-1.5 cursor-pointer select-none"
+                    title="Clic para marcar/desmarcar Confección"
+                  >
+                    <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
+                      {markedModistaConfeccion ? 'X' : ''}
+                    </div>
+                    <span className="text-[8.5px] font-bold text-black uppercase">
+                      Confección
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Right: Observaciones con casillas de Instalación y Confección (6 cols) */}
-              <div className="col-span-6 pl-2 flex flex-col justify-between">
-                <div>
-                  <div className="text-[9px] font-black uppercase text-black tracking-tight">
-                    OBSERVACIONES
-                  </div>
-
-                  {/* Dos recuadros para marcar con 'X': Instalación y Confección */}
-                  <div className="mt-1.5 flex items-center gap-3">
-                    {/* Casilla 1: Instalación */}
-                    <div
-                      onClick={() => setMarkedModistaInstalacion(!markedModistaInstalacion)}
-                      className="flex items-center gap-1.5 cursor-pointer select-none"
-                      title="Clic para marcar/desmarcar Instalación"
-                    >
-                      <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
-                        {markedModistaInstalacion ? 'X' : ''}
-                      </div>
-                      <span className="text-[8.5px] font-bold text-black uppercase">
-                        Instalación
-                      </span>
-                    </div>
-
-                    {/* Casilla 2: Confección */}
-                    <div
-                      onClick={() => setMarkedModistaConfeccion(!markedModistaConfeccion)}
-                      className="flex items-center gap-1.5 cursor-pointer select-none"
-                      title="Clic para marcar/desmarcar Confección"
-                    >
-                      <div className="w-4 h-4 min-w-4 border-2 border-black bg-white flex items-center justify-center font-black text-xs leading-none">
-                        {markedModistaConfeccion ? 'X' : ''}
-                      </div>
-                      <span className="text-[8.5px] font-bold text-black uppercase">
-                        Confección
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Línea inferior para observaciones o notas */}
-                <div className="mt-1.5 flex items-baseline gap-1 text-[8px] text-neutral-800">
+              {/* Líneas para observaciones o notas */}
+              <div className="space-y-1.5 pt-0.5">
+                <div className="flex items-baseline gap-1 text-[8px] text-neutral-800">
                   <span className="font-bold text-black shrink-0">Obs.:</span>
+                  <DotLine heightClass="h-4" />
+                </div>
+                <div className="flex items-baseline gap-1 text-[8px]">
                   <DotLine heightClass="h-4" />
                 </div>
               </div>
